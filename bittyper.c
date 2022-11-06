@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
                 break;
 			case 'b':
 				toggle(brk);
-				break;
+				break; // moment
             case 'c':
                 toggle(clr);
                 break;
