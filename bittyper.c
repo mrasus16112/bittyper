@@ -8,33 +8,6 @@
 #define REGISTERS_MAX_SIZE 64
 typedef unsigned char byte_t;
 
-void help() {
-    system("clear");
-    puts("7 6 5 4  3 2 1 0\n"
-         "a s d f  j k l ;\n\n"
-         "How it works\n"
-         "You start with an empty byte. "
-         "When you type a key as shown on the chart above, it will flip the bit of the byte at the corresponding position. "
-         "For example, as the chart above shows, hitting L will flip bit 1, and hitting D will flip bit 5. "
-         "Once you have finished flipping bits, hit space to write the byte to the specified file.\n\n"
-         "Register system\n" 
-         "By default, you have 8 'registers' that can store one byte each. "
-         "When you write a register's value, it will not get reset after the operation. "
-         "This allows you to use registers as shortcuts for a specific byte."
-         "You can also set the amount of registers you want (64).\n\n"
-         "Commands\n"
-         "g: open the guide\n"
-         "h: toggle hex representation\n"
-         "r: set current byte to register value\n"
-         "u: update a register's value to the current byte\n"
-         "n: set number of registers\n"
-		 "b: break up the binary representation to align with keyboard\n"
-		 "c: toggle clearing after writing byte to file\n\n"
-         "Press any key to exit the guide\n"
-         "Press Ctrl-C at any time to exit the program");
-    (void) getchar();
-}
-
 int input(byte_t key, byte_t *byte) {
 	switch (key) {
 		case 'a':
@@ -85,7 +58,6 @@ int main(int argc, char **argv) {
     newsettings = oldsettings;
     newsettings.c_lflag &= (~ICANON & ~ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &newsettings);
-    help();
 
     byte_t *registers = calloc(8, sizeof(byte_t)), byte = 0, key;
     bool hex = false, brk = false, clr = true;
@@ -96,9 +68,6 @@ int main(int argc, char **argv) {
 				putc(byte, file);
 				if (clr) byte = 0;
 				break;
-            case 'g':
-                help();
-                break;
             case 'h':
                 hex = !hex;
                 break;
