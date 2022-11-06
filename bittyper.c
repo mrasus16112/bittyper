@@ -4,8 +4,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#define newline putchar('\n')
-#define REGISTERS_MAX_SIZE 64
+#define toggle(condition) condition = !condition
 typedef unsigned char byte_t;
 
 int main(int argc, char **argv) {
@@ -14,7 +13,7 @@ int main(int argc, char **argv) {
         return 69;
     } 
     
-    FILE *file = fopen(argv[1], "ab");
+    FILE *file = fopen(argv[1], "a");
 	
     if (file == NULL) {
         fprintf(stderr, "error opening file: %s", argv[1]);
@@ -62,14 +61,15 @@ int main(int argc, char **argv) {
                 putc(byte, file);
                 if (clr) byte = 0;
                 break;
+            
             case 'h':
-                hex = !hex;
+                toggle(hex);
                 break;
 			case 'b':
-				brk = !brk;
-				break; // moment
+				toggle(brk);
+				break;
             case 'c':
-                clr = !clr;
+                toggle(clr);
                 break;
         };
 		
@@ -78,7 +78,6 @@ int main(int argc, char **argv) {
 			printf("%d", !!(byte & (1 << i)));
 			if (i == 4 && brk) printf("  ");
 		}
-		
         if (hex) printf("\n%02x", byte); 
     } while ((key = getchar()));
 
