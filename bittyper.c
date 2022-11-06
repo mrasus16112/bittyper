@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
     tcsetattr(STDIN_FILENO, TCSANOW, &newsettings);
     help();
 
-    byte_t *registers = calloc(8, sizeof(byte_t)), byte, key;
+    byte_t *registers = calloc(8, sizeof(byte_t)), byte = 0, key;
     bool hex = false, brk = false, clr = true;
 
     do {
