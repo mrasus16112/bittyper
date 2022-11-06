@@ -8,36 +8,6 @@
 #define REGISTERS_MAX_SIZE 64
 typedef unsigned char byte_t;
 
-int input(byte_t key, byte_t *byte) {
-	switch (key) {
-		case 'a':
-			*byte ^= (1 << 7);
-			return 0;
-		case 's':
-			*byte ^= (1 << 6);
-			return 0;
-		case 'd':
-			*byte ^= (1 << 5);
-			return 0;
-		case 'f':
-			*byte ^= (1 << 4);
-			return 0;
-		case 'j':
-			*byte ^= (1 << 3);
-			return 0;
-		case 'k':
-			*byte ^= (1 << 2);
-			return 0;
-		case 'l':
-			*byte ^= (1 << 1);
-			return 0;
-		case ';':
-			*byte ^= (1 << 0);
-			return 0;
-	}
-	return 1;
-}
-
 int main(int argc, char **argv) {
     if (argc < 2) {
         fprintf(stderr, "usage: %s <filename>", *argv);
@@ -63,17 +33,44 @@ int main(int argc, char **argv) {
     bool hex = false, brk = false, clr = true;
 
     do {
-		if (input(key, &byte)) switch (key) {
-			case ' ':
-				putc(byte, file);
-				if (clr) byte = 0;
-				break;
+		switch (key) {
+            case 'a':
+                byte ^= (1 << 7);
+                break;
+            case 's':
+                byte ^= (1 << 6);
+                break;
+            case 'd':
+                byte ^= (1 << 5);
+                break;
+            case 'f':
+                byte ^= (1 << 4);
+                break;
+            case 'j':
+                byte ^= (1 << 3);
+                break;
+            case 'k':
+                byte ^= (1 << 2);
+                break;
+            case 'l':
+                byte ^= (1 << 1);
+                break;
+            case ';':
+                byte ^= (1 << 0);
+                break;
+            case ' ':
+                putc(byte, file);
+                if (clr) byte = 0;
+                break;
             case 'h':
                 hex = !hex;
                 break;
 			case 'b':
 				brk = !brk;
 				break; // moment
+            case 'c':
+                clr = !clr;
+                break;
         };
 		
         system("clear");
@@ -86,5 +83,4 @@ int main(int argc, char **argv) {
     } while ((key = getchar()));
 
     tcsetattr(STDIN_FILENO, TCSANOW, &oldsettings);
-    return 0;
 }

@@ -12,14 +12,11 @@ Once you have finished writing the current byte, press SPACE to write it to the 
 
 ## Registers
 
-By default, you will have 8 registers that can store one byte each. You can set the current byte to a register's value, and you can set a register to the current byte. This allows you to use registers like shortcuts. Then again, if you're using this program, you probably don't want shortcuts to aid your esoteric typing mission.
+By default, you will have 8 registers that can store one byte each. You can set the current byte to a register's value, and you can set a register to the current byte. This allows you to use registers like shortcuts. You can also increase the amount of registers you can have (up to 255). Then again, if you're using this program, you probably don't want shortcuts to aid your esoteric typing mission.
 
 ## Commands
 
 h: toggle <ins>h</ins>exadecimal representation<br>
-r: set current byte to a <ins>r</ins>egister's value<br>
-u: <ins>u</ins>pdate a register's value to the current byte<br>
-n: set total <ins>n</ins>umber of registers<br>
 b: <ins>b</ins>reak the binary representation up (for example, `1011010` becomes `1011  1010`. it makes it easier to type with in my opinion)<br>
 c: toggle <ins>c</ins>learing the current byte after writing it to the file
 
